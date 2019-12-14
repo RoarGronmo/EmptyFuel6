@@ -1,6 +1,7 @@
 package no.rogo.emptyfuel6.ui.screen.station
 
 import android.content.Context
+import android.graphics.Paint
 import androidx.compose.Composable
 import androidx.compose.ambient
 import androidx.compose.frames.open
@@ -61,9 +62,74 @@ fun StationsScreen(
                     modifier = Expanded
             ) {
                 //CardGravityTest()
+                CardGravityTest2()
                 for (i in 0 until 10)
                 {
                     StationCard()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CardGravityTest2()
+{
+    Card(
+            modifier = Spacing(all = 4.dp),
+            color = Color.LightGray,
+            shape = RoundedCornerShape(
+                    size = 5.dp
+            )
+    ){
+        Column {
+
+            MaxIntrinsicHeight {
+                Row {
+                    Surface(
+                            color = Color.Red,
+                            modifier = Spacing(all = 4.dp)
+                    ) {
+                        Text(text = "1 Surface")
+                    }
+
+                    Column(
+                            modifier = Flexible(
+                                    flex = 1f
+                            ) wraps Spacing(
+                                    all = 4.dp
+                            )
+                    ) {
+                        Surface(
+                                color = Color.Green
+                        ) {
+                            Text(text = "2 Column mod Flexible wraps Spacing," +
+                                    "Surface no mod ")
+                        }
+                        Surface(
+                                color = Color.Magenta
+                        ){
+                            Text(text = "3 Surface no mod ")
+                        }
+                    }
+
+                    Column (modifier = ExpandedHeight) {
+
+                        Surface(
+                                modifier = Gravity.End,
+                                color = Color.DarkGray
+                        ){
+                            Text(text = "4. Col no mod, Srf Gr.end")
+                        }
+
+                        Container(modifier = Gravity.End wraps ExpandedHeight) {
+                            Surface(
+                                    color = Color.Yellow
+                            ){
+                                Text(text = "5. Center End !! ")
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -435,6 +501,6 @@ fun TemplatePreviewStationsCard(
 
 ){
     MaterialTheme {
-        CardGravityTest()
+        CardGravityTest2()
     }
 }
